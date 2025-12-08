@@ -1,3 +1,6 @@
+/**
+ * Emitted when character statistics are recalculated
+ */
 class StatChangeEvent {
   constructor({ characterCount, wordCount, sentenceCount, readTime }) {
     this.characterCount = characterCount;
@@ -7,6 +10,9 @@ class StatChangeEvent {
   }
 }
 
+/**
+ * Emitted when the character limit is set, changed, or reached
+ */
 class CharacterLimitEvent {
   constructor({ isOverLimit, limit }) {
     this.isOverLimit = isOverLimit;
@@ -14,6 +20,9 @@ class CharacterLimitEvent {
   }
 }
 
+/**
+ * Emitted when letter density is recalculated
+ */
 class LetterDensityChangeEvent {
   constructor(densities) {
     this.densities = densities;
@@ -34,6 +43,11 @@ function debounce(fn, delay) {
   };
 }
 
+
+/**
+ * Pub - Sub architecture.
+ * Publishes events, subscribes entities to events
+ */
 let pubsub = {
   events: {},
 
