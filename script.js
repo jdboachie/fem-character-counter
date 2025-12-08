@@ -94,7 +94,7 @@ let view = {
           ${
             event.densities.length > 5
               ? `
-              <button class="seemore__button text-preset-3">
+              <button class="seemore__button text-preset-3" tabindex="5">
                 See ${app.shouldSeeMore ? "less" : "more"}
                 <span
                   class="seemore__button__icon"
@@ -126,7 +126,7 @@ let view = {
       if (!this.textarea.classList.contains("error")) {
         this.textarea.classList.add("error");
       }
-      this.textareaErrorLabel.textContent = `Limit reached! Your text exceeds ${event.limit} characters.`;
+      this.textareaErrorLabel.textContent = `Limit reached! Your text exceeds ${event.limit ? event.limit + " characters" : "the limit"}.`;
     } else {
       this.textarea.classList.remove("error");
       this.textareaErrorLabel.textContent = "";
@@ -288,6 +288,8 @@ let app = {
     });
 
     view.characterLimitInput.value = app.DEFAULT_CHARACTER_LIMIT;
+    view.characterLimitToggle.checked = false;
+    view.whitespaceToggle.checked = false;
     counter.setCharacterLimit(app.DEFAULT_CHARACTER_LIMIT);
 
     pubsub.subscribe("StatChangeEvent", (data) => {

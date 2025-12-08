@@ -15,9 +15,28 @@
     <body>
         <div class="container v-flex gap-48">
             <header class="h-flex">
-                <span class="logo"></span>
+                <picture class="logo">
+                    <source
+                        srcset="assets/images/logo-dark-theme.svg"
+                        media="(prefers-color-scheme: dark)"
+                    />
+                    <img
+                        src="assets/images/logo-light-theme.svg"
+                        alt="Character Counter Logo"
+                        class="logo"
+                    />
+                </picture>
                 <button class="settings__button" tabindex="-1">
-                    <span class="settings__button__icon"></span>
+                    <picture>
+                        <source
+                            srcset="assets/images/icon-sun.svg"
+                            media="(prefers-color-scheme: dark)"
+                        />
+                        <img
+                            src="assets/images/icon-moon.svg"
+                            alt="theme-toggle"
+                        />
+                    </picture>
                 </button>
             </header>
             <div class="container">
@@ -40,32 +59,39 @@
                     ></span>
                 </div>
                 <div class="options__container">
-                    <div class="toggles__container h-flex text-preset-4">
-                        <label class="toggles__item">
+                    <form class="toggles__container h-flex text-preset-4">
+                        <label class="toggles__item" for="whitespace-toggle">
                             <input
                                 id="whitespace-toggle"
                                 class="toggles__input"
+                                name="whitespace-toggle"
                                 type="checkbox"
                             />
-                            <span class="toggles__checkbox"></span>
+                            <span tabindex="2" class="toggles__checkbox"></span>
                             Exclude Spaces
                         </label>
-                        <label class="toggles__item">
+                        <label
+                            class="toggles__item"
+                            for="character-limit-toggle"
+                        >
                             <input
                                 id="character-limit-toggle"
                                 class="toggles__input"
+                                name="character-limit-toggle"
                                 type="checkbox"
                             />
-                            <span class="toggles__checkbox"></span>
+                            <span tabindex="3" class="toggles__checkbox"></span>
                             Set Character Limit
-                            <input
-                                aria-label="Character limit value"
-                                id="character-limit-input"
-                                class="character__limit__input text-preset-4"
-                                type="number"
-                            />
                         </label>
-                    </div>
+                        <input
+                            aria-label="Character limit value"
+                            id="character-limit-input"
+                            class="character__limit__input text-preset-4"
+                            type="number"
+                            min="1"
+                            tabindex="4"
+                        />
+                    </form>
                     <p class="text-preset-4">
                         Approx. reading time:
                         <span id="read-time-display">0 minutes</span>
