@@ -8,7 +8,7 @@ class StatChangeEvent {
 }
 
 class CharacterLimitEvent {
-  constructor({ isOverLimit, limit: limit }) {
+  constructor({ isOverLimit, limit }) {
     this.isOverLimit = isOverLimit;
     this.limit = limit;
   }
