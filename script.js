@@ -43,7 +43,6 @@ function debounce(fn, delay) {
   };
 }
 
-
 /**
  * Pub - Sub architecture.
  * Publishes events, subscribes entities to events
