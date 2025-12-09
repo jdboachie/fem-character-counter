@@ -267,22 +267,44 @@ let app = {
     counter.updateStats(event.target.value);
   }, 100),
 
-  onCharacterLimitInput: (event) => {
+  onTextareaKeydown(e) {
+    const text = e.target.value;
+    const isOverLimit =
+      counter.shouldUseCharacterLimit &&
+      (counter.shouldExcludeWhitespace
+        ? text.replace(/\s/g, "").length >= counter.characterLimit
+        : text.length >= counter.characterLimit);
+
+    const allowedKeys = [
+      "Backspace",
+      "Delete",
+      "ArrowLeft",
+      "ArrowRight",
+      "ArrowUp",
+      "ArrowDown",
+      "Tab",
+    ];
+    if (isOverLimit && !allowedKeys.includes(e.key)) {
+      e.preventDefault();
+    }
+  },
+
+  onCharacterLimitInput(event) {
     counter.setCharacterLimit(event.target.value);
   },
 
-  onToggleCharacterLimit: (event) => {
+  onToggleCharacterLimit(event) {
     view.toggleCharacterLimitInput(event.target.checked);
     counter.setUseCharacterLimit(event.target.checked);
     counter.updateStats(view.textarea.value);
   },
 
-  onToggleWhitespace: (event) => {
+  onToggleWhitespace(event) {
     counter.setExcludeWhitespace(event.target.checked);
     counter.updateStats(view.textarea.value);
   },
 
-  run: () => {
+  run() {
     view.characterLimitInput.addEventListener(
       "input",
       app.onCharacterLimitInput,
@@ -292,6 +314,8 @@ let app = {
       app.onToggleCharacterLimit,
     );
     view.textarea.addEventListener("input", app.onTextareaInput);
+    view.textarea.addEventListener("keydown", app.onTextareaKeydown);
+
     view.whitespaceToggle.addEventListener("change", app.onToggleWhitespace);
     view.letterDensityView.addEventListener("click", (e) => {
       if (e.target.closest(".seemore__button")) {
