@@ -63,6 +63,9 @@ let pubsub = {
   },
 };
 
+/**
+ * View provides a direct interface to the DOM
+ */
 let view = {
   appLogo: document.getElementById("app-logo"),
   characterLimitToggle: document.getElementById("character-limit-toggle"),
@@ -78,6 +81,11 @@ let view = {
   whitespaceToggle: document.getElementById("whitespace-toggle"),
   wordCountDisplay: document.getElementById("word-count-display"),
 
+  /**
+   * Generates HTML template for letter density view
+   * @param {Record<string, any>} data - Data object containing letter density information
+   * @returns {string} HTML template for letter density view
+   */
   generateLetterDensityTemplate(data) {
     return `
       <li class="text-preset-4">
@@ -93,6 +101,10 @@ let view = {
     `;
   },
 
+  /**
+   * Updates the letter density view with the provided data
+   * @param {Record<string, any>} event - Event object containing letter density information
+   */
   updateLetterDensityView(event) {
     if (event.densities.length === 0) {
       this.letterDensityView.innerHTML =
@@ -125,6 +137,10 @@ let view = {
     }
   },
 
+  /**
+   * Updates the character statistics view with the provided data
+   * @param {Record<string, any>} data - new statistics to render
+   */
   updateStats(data) {
     this.characterCountDisplay.textContent = data.characterCount;
     this.sentenceCountDisplay.textContent = data.sentenceCount;
@@ -137,6 +153,42 @@ let view = {
           : `${data.readTime.toFixed(2)} minutes`;
   },
 
+  /**
+   * Updates the letter density view with the provided data
+   * @param {Record<string, any>} event - Event object containing letter density information
+   */
+  updateLetterDensityView(event) {
+    if (event.densities.length === 0) {
+      this.letterDensityView.innerHTML =
+        '<li class="text-preset-4">No data available</li>';
+    } else {
+      this.letterDensityView.innerHTML = `
+        <div class="density__container">
+          <ul class="density__list v-flex">
+            ${event.densities.map((item) => this.generateLetterDensityTemplate(item)).join("")}
+          </ul>
+          ${
+            event.densities.length > 5
+              ? `
+              <button class="seemore__button text-preset-3" tabindex="5">
+                See ${app.shouldSeeMore ? "less" : "more"}
+                <span
+                  class="seemore__button__icon"
+                  data-open="${app.shouldSeeMore}"
+                ></span>
+              </button>
+            `
+              : ""
+          }
+        </div>
+      `;
+    }
+  },
+  
+  /**
+   * Toggles the error label visibility based on the provided event data
+   * @param {Record<string, any>} event - Event object containing error information
+   */
   toggleErrorLabel(event) {
     if (event.isOverLimit === true) {
       if (!this.textarea.classList.contains("error")) {
@@ -149,6 +201,10 @@ let view = {
     }
   },
 
+  /**
+   * Toggles the character limit input visibility
+   * @param {boolean} visible - Event object containing character limit information
+   */
   toggleCharacterLimitInput(visible) {
     if (visible === true) {
       this.characterLimitInput.style.visibility = "visible";
@@ -158,6 +214,9 @@ let view = {
   },
 };
 
+/**
+ * Counter Model - contains all the business logic for the application
+ */
 let counter = {
   characterCount: 0,
   characterLimit: 0,
@@ -168,6 +227,11 @@ let counter = {
   wordCount: 0,
   WPM: 200,
 
+  /**
+   * Calculates the character counts for the given text
+   * @param {string} text - The text to calculate character counts for
+   * @returns {Record<string, number>} - Object containing character counts
+   */
   getCharacterCounts(text) {
     let counts = {};
     for (const char of text.toUpperCase()) {
@@ -176,6 +240,11 @@ let counter = {
     return counts;
   },
 
+  /**
+   * Calculates the letter densities for the given text
+   * @param {string} text - The text to calculate letter densities for
+   * @returns {Array<{letter: string, count: number, percent: number}>} - Array of objects containing letter densities
+   */
   getLetterDensities(text) {
     const counts = this.getCharacterCounts(text);
     const totalLetters = Object.values(counts).reduce((a, b) => a + b, 0);
@@ -194,10 +263,18 @@ let counter = {
     );
   },
 
+  /**
+   * Sets whether to exclude whitespace from character counts
+   * @param {boolean} shouldExcludeWhitespace - Whether to exclude whitespace
+   */
   setExcludeWhitespace(shouldExcludeWhitespace) {
     this.shouldExcludeWhitespace = shouldExcludeWhitespace;
   },
 
+  /**
+   * Sets the character limit for the text input
+   * @param {number} limit - The character limit
+   */
   setCharacterLimit(limit) {
     this.characterLimit = limit;
     pubsub.publish(
@@ -209,10 +286,18 @@ let counter = {
     );
   },
 
+  /**
+   * Sets whether to use character limit for text input
+   * @param {boolean} shouldUseCharacterLimit - Whether to use character limit
+   */
   setUseCharacterLimit(shouldUseCharacterLimit) {
     this.shouldUseCharacterLimit = shouldUseCharacterLimit;
   },
 
+  /**
+   * Updates the character count based on the provided text
+   * @param {string} text - The text to analyze
+   */
   updateCharacterCount(text) {
     if (this.shouldExcludeWhitespace) {
       this.characterCount = text.replace(/\s/g, "").length;
@@ -221,6 +306,10 @@ let counter = {
     }
   },
 
+  /**
+   * Updates character count and publishes character limit event
+   * @param {string} text - The text to analyze
+   */
   updateStats(text) {
     this.updateCharacterCount(text);
     if (
