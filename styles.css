@@ -359,6 +359,7 @@ input[type="number"] {
 
 .card > .text-preset-3 {
     color: var(--card-foreground);
+    z-index: 1;
 }
 
 .card-image {
