@@ -90,7 +90,6 @@ button {
 
     --alert-icon-url: url("assets/images/icon-info.svg");
     --background-image-url: url("/assets/images/bg-light-theme.png");
-    --logo-image-url: url("assets/images/logo-light-theme.svg");
     --seemore-icon-url: url("assets/images/caret_down.svg");
     --settings-icon-url: url("assets/images/icon-moon.svg");
 
@@ -107,24 +106,21 @@ button {
     --text-preset-3: var(--color-neutral-700);
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background-image-url: url("/assets/images/bg-dark-theme.png");
-        --logo-image-url: url("assets/images/logo-dark-theme.svg");
-        --seemore-icon-url: url("assets/images/caret_down_dark.svg");
-        --settings-icon-url: url("assets/images/icon-sun.svg");
+html.dark {
+    --background-image-url: url("/assets/images/bg-dark-theme.png");
+    --seemore-icon-url: url("assets/images/caret_down_dark.svg");
+    --settings-icon-url: url("assets/images/icon-sun.svg");
 
-        --border: var(--color-neutral-700);
-        --button-background: var(--color-neutral-700);
-        --checkbox-border: var(--color-neutral-0);
-        --hero-text-color: var(--color-neutral-100);
-        --foreground: var(--color-neutral-100);
-        --progress-bar-background: var(--color-neutral-800);
-        --textarea-background: var(--color-neutral-800);
-        --textarea-active-background: var(--color-neutral-800);
-        --textarea-hover-background: var(--color-neutral-700);
-        --text-preset-3: var(--color-neutral-200);
-    }
+    --border: var(--color-neutral-700);
+    --button-background: var(--color-neutral-700);
+    --checkbox-border: var(--color-neutral-0);
+    --hero-text-color: var(--color-neutral-100);
+    --foreground: var(--color-neutral-100);
+    --progress-bar-background: var(--color-neutral-800);
+    --textarea-background: var(--color-neutral-800);
+    --textarea-active-background: var(--color-neutral-800);
+    --textarea-hover-background: var(--color-neutral-700);
+    --text-preset-3: var(--color-neutral-200);
 }
 
 body {

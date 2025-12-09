@@ -64,14 +64,17 @@ let pubsub = {
 };
 
 let view = {
+  appLogo: document.getElementById("app-logo"),
   characterLimitToggle: document.getElementById("character-limit-toggle"),
   characterLimitInput: document.getElementById("character-limit-input"),
   characterCountDisplay: document.getElementById("character-count-display"),
   letterDensityView: document.getElementById("letter-density-view"),
   readTimeDisplay: document.getElementById("read-time-display"),
   sentenceCountDisplay: document.getElementById("sentence-count-display"),
+  settingsButtonIcon: document.getElementById("settings-button-icon"),
   textarea: document.getElementById("textarea"),
   textareaErrorLabel: document.getElementById("textarea-error-label"),
+  themeToggle: document.getElementById("settings-button"),
   whitespaceToggle: document.getElementById("whitespace-toggle"),
   wordCountDisplay: document.getElementById("word-count-display"),
 
@@ -304,6 +307,17 @@ let app = {
     counter.updateStats(view.textarea.value);
   },
 
+  onToggleTheme(event) {
+    document.documentElement.classList.toggle("dark");
+    if (document.documentElement.classList.contains("dark")) {
+      view.appLogo.src = "assets/images/logo-dark-theme.svg";
+      view.settingsButtonIcon.src = "assets/images/icon-sun.svg"
+    } else {
+      view.appLogo.src = "assets/images/logo-light-theme.svg";
+      view.settingsButtonIcon.src = "assets/images/icon-moon.svg"
+    }
+  },
+
   run() {
     view.characterLimitInput.addEventListener(
       "input",
@@ -315,7 +329,7 @@ let app = {
     );
     view.textarea.addEventListener("input", app.onTextareaInput);
     view.textarea.addEventListener("keydown", app.onTextareaKeydown);
-
+    view.themeToggle.addEventListener("click", app.onToggleTheme);
     view.whitespaceToggle.addEventListener("change", app.onToggleWhitespace);
     view.letterDensityView.addEventListener("click", (e) => {
       if (e.target.closest(".seemore__button")) {
