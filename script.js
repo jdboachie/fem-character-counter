@@ -351,6 +351,9 @@ let counter = {
   },
 };
 
+/**
+ * Main app controller
+ */
 let app = {
   DEFAULT_CHARACTER_LIMIT: 300,
   shouldSeeMore: false,
