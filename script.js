@@ -160,31 +160,35 @@ let view = {
   updateLetterDensityView(event) {
     if (event.densities.length === 0) {
       this.letterDensityView.innerHTML =
-        '<li class="text-preset-4">No data available</li>';
+        "No characters found. Start typing to see letter density.";
     } else {
+      const items = app.shouldSeeMore
+        ? event.densities
+        : event.densities.slice(0, 5);
+
       this.letterDensityView.innerHTML = `
-        <div class="density__container">
-          <ul class="density__list v-flex">
-            ${event.densities.map((item) => this.generateLetterDensityTemplate(item)).join("")}
-          </ul>
-          ${
-            event.densities.length > 5
-              ? `
-              <button class="seemore__button text-preset-3" tabindex="5">
-                See ${app.shouldSeeMore ? "less" : "more"}
-                <span
-                  class="seemore__button__icon"
-                  data-open="${app.shouldSeeMore}"
-                ></span>
-              </button>
-            `
-              : ""
-          }
-        </div>
-      `;
+           <div class="density__container">
+             <ul class="density__list v-flex">
+               ${items.map((item) => this.generateLetterDensityTemplate(item)).join("")}
+             </ul>
+             ${
+               event.densities.length > 5
+                 ? `
+                 <button class="seemore__button text-preset-3" tabindex="5">
+                   See ${app.shouldSeeMore ? "less" : "more"}
+                   <span
+                     class="seemore__button__icon"
+                     data-open="${app.shouldSeeMore}"
+                   ></span>
+                 </button>
+               `
+                 : ""
+             }
+           </div>
+         `;
     }
   },
-  
+
   /**
    * Toggles the error label visibility based on the provided event data
    * @param {Record<string, any>} event - Event object containing error information
@@ -403,10 +407,10 @@ let app = {
     document.documentElement.classList.toggle("dark");
     if (document.documentElement.classList.contains("dark")) {
       view.appLogo.src = "assets/images/logo-dark-theme.svg";
-      view.settingsButtonIcon.src = "assets/images/icon-sun.svg"
+      view.settingsButtonIcon.src = "assets/images/icon-sun.svg";
     } else {
       view.appLogo.src = "assets/images/logo-light-theme.svg";
-      view.settingsButtonIcon.src = "assets/images/icon-moon.svg"
+      view.settingsButtonIcon.src = "assets/images/icon-moon.svg";
     }
   },
 
