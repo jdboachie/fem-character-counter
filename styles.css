@@ -365,7 +365,7 @@ input[type="number"] {
     position: absolute;
     width: 150px;
     height: 150px;
-    translate: 122% 0%;
+    right: -9%;
     background-repeat: no-repeat;
 }
 
@@ -519,7 +519,7 @@ input[type="number"] {
     }
 
     .card-image {
-        translate: 8.6rem 0rem;
+        right: -12%;
     }
 }
 
@@ -553,6 +553,6 @@ input[type="number"] {
     }
 
     .card-image {
-        translate: 20.5rem 0;
+        right: -9%;
     }
 }
