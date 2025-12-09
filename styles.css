@@ -324,6 +324,7 @@ input[type="number"] {
     background-color: var(--button-background);
     border: none;
     border-radius: var(--radius-8);
+    cursor: pointer;
 }
 
 .settings__button__icon {
