@@ -357,7 +357,8 @@ input[type="number"] {
     color: var(--card-foreground);
 }
 
-.card > .text-preset-3 {
+.card > .text-preset-3,
+.card > .text-preset-1 {
     color: var(--card-foreground);
     z-index: 1;
 }
