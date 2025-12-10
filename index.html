@@ -3,24 +3,33 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <link
             rel="icon"
             type="image/png"
             sizes="32x32"
             href="./assets/images/favicon-32x32.png"
         />
-
         <link rel="stylesheet" href="./styles.css" />
-
-        <title>Jude Boachie | Character counter</title>
+        <title>Jude Boachie | Character Counter</title>
     </head>
     <body>
         <div class="container v-flex gap-48">
             <header class="h-flex">
-                <span class="logo"></span>
-                <button class="settings__button">
-                    <span class="settings__button__icon"></span>
+                <img
+                    id="app-logo"
+                    src="assets/images/logo-light-theme.svg"
+                    alt="Character Counter Logo"
+                    class="logo"
+                />
+                <button
+                    id="settings-button"
+                    class="settings__button"
+                >
+                    <img
+                        id="settings-button-icon"
+                        src="assets/images/icon-moon.svg"
+                        alt="theme-toggle"
+                    />
                 </button>
             </header>
             <div class="container">
@@ -29,106 +38,83 @@
                 </h1>
             </div>
             <section class="inputarea v-flex gap-16">
-                <textarea
-                    placeholder="Start typing here... (or paste your text)"
-                    spellcheck="false"
-                    class="text-preset-3"
-                    tabindex="0"
-                >
-Design is the silent ambassador of your brand. Simplicity is key to effective communication, creating clarity in every interaction. A great design transforms complex ideas into elegant solutions, making them easy to understand. It blends aesthetics and functionality seamlessly.
-                </textarea>
+                <div class="v-flex">
+                    <textarea
+                        id="textarea"
+                        placeholder="Start typing here... (or paste your text)"
+                        spellcheck="false"
+                        class="text-preset-3"
+                    ></textarea>
+                    <span
+                        id="textarea-error-label"
+                        class="textarea__error__label text-preset-4"
+                    ></span>
+                </div>
                 <div class="options__container">
-                    <div class="toggles__container h-flex text-preset-4">
-                        <label class="toggles__item" tabindex="0">
-                            <input class="toggles__input" type="checkbox" />
-                            <span class="toggles__checkbox"></span>
+                    <form class="toggles__container h-flex text-preset-4">
+                        <label class="toggles__item" for="whitespace-toggle">
+                            <input
+                                id="whitespace-toggle"
+                                class="toggles__input"
+                                name="whitespace-toggle"
+                                type="checkbox"
+                            />
+                            <span tabindex="2" class="toggles__checkbox"></span>
                             Exclude Spaces
                         </label>
-                        <label class="toggles__item" tabindex="2">
-                            <input class="toggles__input" type="checkbox" />
-                            <span class="toggles__checkbox"></span>
+                        <label
+                            class="toggles__item"
+                            for="character-limit-toggle"
+                        >
+                            <input
+                                id="character-limit-toggle"
+                                class="toggles__input"
+                                name="character-limit-toggle"
+                                type="checkbox"
+                            />
+                            <span tabindex="3" class="toggles__checkbox"></span>
                             Set Character Limit
                         </label>
-                    </div>
-                    <p class="text-preset-4">Approx. reading time: <1 minute</p>
+                        <input
+                            aria-label="Character limit value"
+                            id="character-limit-input"
+                            class="character__limit__input text-preset-4"
+                            type="number"
+                            min="1"
+                        />
+                    </form>
+                    <p class="text-preset-4">
+                        Approx. reading time:
+                        <span id="read-time-display">0 minutes</span>
+                    </p>
                 </div>
             </section>
             <section class="stats__section h-flex gap-16">
                 <div class="total-characters-card card v-flex">
-                    <p class="text-preset-1">278</p>
+                    <p id="character-count-display" class="text-preset-1">0</p>
                     <p class="text-preset-3">Total Characters</p>
                     <div class="card-image"></div>
                 </div>
                 <div class="word-count-card card v-flex">
-                    <p class="text-preset-1">39</p>
+                    <p id="word-count-display" class="text-preset-1">0</p>
                     <p class="text-preset-3">Word Count</p>
                     <div class="card-image"></div>
                 </div>
                 <div class="sentence-count-card card v-flex">
-                    <p class="text-preset-1">04</p>
+                    <p id="sentence-count-display" class="text-preset-1">0</p>
                     <p class="text-preset-3">Sentence count</p>
                     <div class="card-image"></div>
                 </div>
             </section>
-
             <section class="letter-density-section v-flex">
                 <h2 class="text-preset-2">Letter Density</h2>
-                <ul class="density-list-container v-flex">
-                    <li>
-                        <p class="label">E</p>
-                        <div class="progressbar">
-                            <div
-                                style="--progress-width: 16.06%"
-                                class="progressbar__indicator"
-                            ></div>
-                        </div>
-                        <p class="progressbar__detail">40 (16.06%)</p>
-                    </li>
-                    <li>
-                        <p class="label">I</p>
-                        <div
-                            style="--progress-width: 11.65%"
-                            class="progressbar"
-                        >
-                            <div class="progressbar__indicator"></div>
-                        </div>
-                        <p class="progressbar__detail">29 (11.65%)</p>
-                    </li>
-                    <li>
-                        <p class="label">T</p>
-                        <div class="progressbar">
-                            <div
-                                style="--progress-width: 11.24%"
-                                class="progressbar__indicator"
-                            ></div>
-                        </div>
-                        <p class="progressbar__detail">28 (11.24%)</p>
-                    </li>
-                    <li>
-                        <p class="label">O</p>
-                        <div class="progressbar">
-                            <div
-                                style="--progress-width: 8.84%"
-                                class="progressbar__indicator"
-                            ></div>
-                        </div>
-                        <p class="progressbar__detail">22 (8.84%)</p>
-                    </li>
-                    <li>
-                        <p class="label">N</p>
-                        <div class="progressbar">
-                            <div
-                                style="--progress-width: 8.43%"
-                                class="progressbar__indicator"
-                            ></div>
-                        </div>
-                        <p class="progressbar__detail">21 (8.43%)</p>
-                    </li>
-                </ul>
-                <button class="seemore__button text-preset-4">
-                    See more <span class="seemore__button__icon"></span>
-                </button>
+                <div id="letter-density-view">
+                    <p>
+                        No characters found. Start typing to see letter density.
+                    </p>
+                </div>
             </section>
         </div>
     </body>
+    <script src="script.js"></script>
 </html>
